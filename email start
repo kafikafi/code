@@ -1,0 +1,32 @@
+require_once('../config/plugins/class.phpmailer.php');
+	require_once('../config/plugins/class.smtp.php');
+					$mail = new PHPMailer();
+				//$mail->IsSMTP(); // telling the class to use SMTP
+				//$mail->Host = "localhost"; // SMTP server
+				//IsSMTP(); // send via SMTP
+				$mail->Host     = "mail.yourmail.com"; // SMTP server Gmail
+				$mail->SMTPSecure = "tls"; 
+				$mail->Port		= 587;
+				$mail->Mailer   = "smtp";
+				$mail->SMTPAuth = true; // turn on SMTP authentication
+				
+				$mail->Username = "your_address@yourmail.com"; // 
+				$mail->Password = "your_password"; // SMTP password
+				$webmaster_email = "your_address@yourmail.com"; //Reply to this email ID
+				$email = $rowcount['email']; // Recipients email ID
+				$name = $rowcount['nama']; // Recipient's name
+				$mail->From = $webmaster_email;
+				$mail->FromName = "Administrator mail";
+				$mail->AddAddress("recipient@yourmail.com","Your Recepiensts");
+				$mail->AddReplyTo($webmaster_email,$webmaster_email);
+				$mail->WordWrap = 50; // set word wrap
+				//$mail->AddAttachment("images/bg.gif"); // attachment
+				//$mail->AddAttachment("images/delete.gif"); // attachment
+				$mail->IsHTML(true); // send as HTML
+				$mail->Subject = "Your Mail Subject";
+				$mail->Body = "Your mail body content"; //HTML Body
+				$mail->AltBody = "This is the body when user views in plain text format"; //Text Body 
+				if(!$mail->Send()){
+					echo "Mailer Error: " . $mail->ErrorInfo;
+				}//Closure mail error notification
+	}
